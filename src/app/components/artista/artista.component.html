@@ -1,0 +1,73 @@
+<div *ngIf="artista" class="main-container">
+
+  <div class="row">
+
+    <div class="col-md-3 text-center">
+      <img [src]="artista.images | sinfoto" class="img-thumbnail img-circle">
+    </div>
+
+    <div class="col-md-9">
+      <h3> {{ artista.name}} <small>Popularidad {{ artista.popularity }}</small></h3>
+      <hr>
+
+      <a [href]="artista.external_urls?.spotify"
+        class="btn btn-outline-success">
+        Ver página
+      </a>
+
+      <a [routerLink]="['/buscar']"
+        class="btn btn-outline-danger">
+        Regresar
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+<br>
+<div *ngIf="canciones"class="container">
+
+  <h3>Cancion de {{ artista.name }}</h3>
+  <hr>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="table-responsive">
+        <table class="table table-inverse table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Foto</th>
+              <th>Canción</th>
+              <th>Album</th>
+              <th>Preview</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cancion of canciones; let i = index;">
+              <td> {{ i+1 }}</td>
+              <td>
+                <img [src]="cancion.album?.images | sinfoto" class="img-fluid img-50">
+              </td>
+              <td>{{ cancion.name }}</td>
+              <td>{{ cancion.album.name }}</td>
+              <td>
+                <!--<audio controls>
+                  <source [src]="cancion.preview_url">
+                </audio>-->
+
+                <iframe [src]="cancion.uri | domseguro:'https://open.spotify.com/embed?uri='" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
